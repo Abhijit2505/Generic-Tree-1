@@ -61,6 +61,30 @@ TreeNode<int>* take_input()
     }
     return root;
 }
+void print_level_wise(TreeNode<int>* root)
+{
+   queue<TreeNode<int>*> pending_nodes;
+   pending_nodes.push(root);
+   while(!pending_nodes.empty())
+   {
+       TreeNode<int>* front = pending_nodes.front();
+       pending_nodes.pop();
+       cout << front -> data << " : ";
+       for(int i=0;i<front -> children.size();i++)
+       {
+            if(i==front -> children.size()-1)
+            {
+                cout << front -> children[i] -> data;
+            }
+            else
+            {
+                cout << front -> children[i] -> data << " , ";
+            }
+            pending_nodes.push(front -> children[i]);
+       }
+       cout << endl;
+   }
+}
 
 void printTree(TreeNode<int>* root)
 {
@@ -88,7 +112,7 @@ int main()
     root -> children.push_back(node1);
     root -> children.push_back(node2);*/
     TreeNode<int>* root = take_input_levelwise();
-    printTree(root);
+    print_level_wise(root);
 }
 
 

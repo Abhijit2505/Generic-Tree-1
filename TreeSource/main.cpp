@@ -13,6 +13,36 @@ public:
     }
 };
 
+TreeNode<int>* take_input_levelwise()
+{
+    int rootdata;
+    cout << "Enter data : " << endl;
+    cin >> rootdata;
+    TreeNode<int>* root = new TreeNode<int>(rootdata);
+
+    queue<TreeNode<int>*> pendingNodes;
+
+    pendingNodes.push(root);
+    while(!pendingNodes.empty())
+    {
+        TreeNode<int>* front = pendingNodes.front();
+        pendingNodes.pop();
+        cout << "Enter numbers of child node of "<< front -> data << " : " << endl;
+        int numchild;
+        cin >> numchild;
+        for(int i=0;i<numchild;i++)
+        {
+            int child_data;
+            cout << "Enter " << i << " th child of " << front -> data << endl;
+            cin >> child_data;
+            TreeNode<int>* child = new TreeNode<int>(child_data);
+            front -> children.push_back(child);
+            pendingNodes.push(child);
+        }
+    }
+    return root;
+}
+
 TreeNode<int>* take_input()
 {
     int root_data;
@@ -57,7 +87,7 @@ int main()
     TreeNode<int>* node2 = new TreeNode<int>(3);
     root -> children.push_back(node1);
     root -> children.push_back(node2);*/
-    TreeNode<int>* root = take_input();
+    TreeNode<int>* root = take_input_levelwise();
     printTree(root);
 }
 

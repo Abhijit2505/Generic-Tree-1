@@ -153,6 +153,61 @@ void printTree(TreeNode<int>* root)
     }
 }
 
+void print_level_k(TreeNode<int>* root,int k)
+{
+    if(k==0)
+    {
+        cout << root -> data << " ";
+        return;
+    }
+    for(int i=0;i<root -> children.size();i++)
+    {
+            print_level_k(root -> children[i],k-1);
+    }
+}
+
+int count_leaf_nodes(TreeNode<int>* root)
+{
+    if(root -> children.size()==0)
+    {
+        return 1;
+    }
+    int sum = 0;
+    for(int i=0;i<root -> children.size();i++)
+    {
+       sum+= count_leaf_nodes(root -> children[i]);
+    }
+    return sum;
+}
+
+void preorder_traversal(TreeNode<int>* root)
+{
+    if(root == nullptr)
+    {
+        return;
+    }
+    cout << root -> data << " ";
+    for(int i=0;i < root -> children.size();i++)
+    {
+        preorder_traversal(root -> children[i]);
+    }
+}
+
+void postorder_traversal(TreeNode<int>* root)
+{
+    if(root == nullptr)
+    {
+        return;
+    }
+    for(int i=0;i < root -> children.size();i++)
+    {
+        postorder_traversal(root -> children[i]);
+    }
+     cout << root -> data << " ";
+}
+
+
+// 1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0
 int main()
 {
     /*TreeNode<int>* root = new TreeNode<int>(1);
@@ -162,8 +217,11 @@ int main()
     root -> children.push_back(node2);*/
     TreeNode<int>* root = take_input_levelwise();
     print_level_wise(root);
-    cout << max_data_node(root) << endl;
-    cout << height(root) << endl;
+    /*cout << max_data_node(root) << endl;
+    cout << height(root) << endl;*/
+    // print_level_k(root,1);
+    // cout << count_leaf_nodes(root) << endl;
+    postorder_traversal(root);
 }
 
 

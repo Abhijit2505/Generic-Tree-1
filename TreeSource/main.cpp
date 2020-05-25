@@ -285,6 +285,39 @@ bool isIdentical(TreeNode<int> *root1, TreeNode<int> * root2)
     }
 }
 
+TreeNode<int>* nextLargerElement(TreeNode<int> *root, int n)
+{
+	if(root == nullptr)
+    {
+        return nullptr;
+    }
+    TreeNode<int>* ans = nullptr;
+	if(root -> data > n)
+    {
+        ans = root;
+    }
+    for(int i=0;i<root -> children.size();i++)
+    {
+        TreeNode<int>* small_ans = nextLargerElement(root -> children[i],n);
+        if(ans==nullptr && small_ans==nullptr)
+        {
+            continue;
+        }
+        else if(ans==nullptr)
+        {
+            ans = small_ans;
+        }
+        else if(ans && small_ans)
+        {
+            if(small_ans -> data < ans -> data)
+            {
+                ans = small_ans;
+            }
+        }
+    }
+    return ans;
+}
+
 // 1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0
 int main()
 {

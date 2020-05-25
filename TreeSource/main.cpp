@@ -380,6 +380,21 @@ TreeNode <int>* secondLargest(TreeNode<int> *root)
     return second_largest_helper(root) -> secondlargest;
 }
 
+void replace_helper(TreeNode<int>* root,int depth)
+{
+    root -> data =  depth;
+    for(int i=0;i<root -> children.size();i++)
+    {
+        replace_helper(root,depth+1);
+    }
+    return;
+}
+void replaceWithDepthValue(TreeNode<int> *root)
+{ 
+    int depth = 0;
+    replace_helper(root,depth);
+    return;
+}
 
 // 1 3 2 3 4 2 5 6 2 7 8 0 0 0 0 1 9 0
 int main()
@@ -397,12 +412,3 @@ int main()
     print_level_wise(root);
     postorder_traversal(root);
 }
-
-
-
-
-
-
-
-
-
